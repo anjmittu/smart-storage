@@ -37,15 +37,15 @@ class LaunchRequestHandler(AbstractRequestHandler):
         )
 
 
-class HelloWorldIntentHandler(AbstractRequestHandler):
-    """Handler for Hello World Intent."""
+class StoreItemIntentHandler(AbstractRequestHandler):
+    """Handler for Store Item Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("HelloWorldIntent")(handler_input)
+        return ask_utils.is_intent_name("StoreItemIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Hello World!"
+        speak_output = "What would you like to store"
 
         return (
             handler_input.response_builder
