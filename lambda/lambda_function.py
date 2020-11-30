@@ -39,6 +39,23 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 .response
         )
 
+class CloseBoxIntentHandler(AbstractRequestHandler):
+    """Handler for Retrieve Item Intent."""
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("RetrieveItemIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        
+        speak_output = "Closing the box"
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .response
+        )
+
 class RetrieveItemIntentHandler(AbstractRequestHandler):
     """Handler for Retrieve Item Intent."""
     def can_handle(self, handler_input):
@@ -200,6 +217,7 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 sb = SkillBuilder()
 
 sb.add_request_handler(LaunchRequestHandler())
+sb.add_request_handler(CloseBoxIntentHandler())
 sb.add_request_handler(RetrieveItemIntentHandler())
 sb.add_request_handler(StoreItemIntentHandler())
 sb.add_request_handler(HelpIntentHandler())
