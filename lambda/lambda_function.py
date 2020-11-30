@@ -49,7 +49,7 @@ class StoreItemIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         item_to_store = handler_input.request_envelope.request.intent.slots['storage_item'].value
-        box_id = int(round(random.uniform(1, 3)))
+        box_id = int(round(random.uniform(1, 2)))
         dynamodb = boto3.resource('dynamodb')
         table = dynamodb.Table('a12d15a7-b62a-4d77-90c8-40b63c3ddefe')
         response = table.put_item(
