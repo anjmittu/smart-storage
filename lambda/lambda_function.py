@@ -15,6 +15,7 @@ from ask_sdk_core.handler_input import HandlerInput
 from ask_sdk_model import Response
 
 import boto3
+import random
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -48,18 +49,20 @@ class StoreItemIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         item_to_store = handler_input.request_envelope.request.intent.slots['storage_item'].value
+        box_id = random.uniform(1, 2)
         dynamodb = boto3.resource('dynamodb')
         table = dynamodb.Table('a12d15a7-b62a-4d77-90c8-40b63c3ddefe')
         response = table.put_item(
            Item={
                 "id": item_to_store,
-                "box_id": 1
+                "box_id": box_id
             }
         )
         
-        print(response)
-        
-        speak_output = "What would you like to store"
+        if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+            speak_output = "Store the {} in box {}".format(item_to_store, box_id)
+        else:
+            speak_output = "There was a problem storing the item"
 
         return (
             handler_input.response_builder
