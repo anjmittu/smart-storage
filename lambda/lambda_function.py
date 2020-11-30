@@ -48,7 +48,6 @@ class RetrieveItemIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         item_to_store = handler_input.request_envelope.request.intent.slots['storage_item'].value
-        box_id = int(round(random.uniform(1, 2)))
         
         dynamodb = boto3.resource('dynamodb')
         table = dynamodb.Table('a12d15a7-b62a-4d77-90c8-40b63c3ddefe')
@@ -57,7 +56,7 @@ class RetrieveItemIntentHandler(AbstractRequestHandler):
         print(response)
         
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-            speak_output = "Store the {} in box {}".format(item_to_store, box_id)
+            speak_output = "Get the {} in box {}".format(item_to_store, 1)
         else:
             speak_output = "There was a problem storing the item"
 
