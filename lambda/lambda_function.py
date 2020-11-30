@@ -45,7 +45,8 @@ class StoreItemIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        print(handler_input)
+        item_to_store = handler_input.request_envelope.request.intent.slots['storage_item'].value
+        print(item_to_store)
         speak_output = "What would you like to store"
 
         return (
