@@ -55,7 +55,7 @@ class RetrieveItemIntentHandler(AbstractRequestHandler):
         
         if "Item" in response:
             box_id = response['Item']["box_id"]
-            speak_output = "Get the {} in box {}".format(item_to_store, box_id)
+            speak_output = "Get the {} in box {}. Tell me when to close the box.".format(item_to_store, box_id)
         else:
             speak_output = "There was a problem getting the item"
 
@@ -86,7 +86,7 @@ class StoreItemIntentHandler(AbstractRequestHandler):
         )
         
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-            speak_output = "Store the {} in box {}".format(item_to_store, box_id)
+            speak_output = "Store the {} in box {}.  Tell me when to close the box.".format(item_to_store, box_id)
         else:
             speak_output = "There was a problem storing the item"
 
