@@ -52,7 +52,7 @@ class StoreItemIntentHandler(AbstractRequestHandler):
         table = dynamodb.Table('a12d15a7-b62a-4d77-90c8-40b63c3ddefe')
         response = table.put_item(
            Item={
-                "item_name": item_to_store,
+                "id": item_to_store,
                 "box_id": 1
             }
         )
