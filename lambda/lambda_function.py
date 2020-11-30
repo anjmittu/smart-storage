@@ -47,7 +47,7 @@ class RetrieveItemIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        item_to_store = handler_input.request_envelope.request.intent.slots['storage_item'].value
+        item_to_store = handler_input.request_envelope.request.intent.slots['box_item'].value
         
         dynamodb = boto3.resource('dynamodb')
         table = dynamodb.Table('a12d15a7-b62a-4d77-90c8-40b63c3ddefe')
