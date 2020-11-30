@@ -14,6 +14,8 @@ from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
 
+import boto3
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -46,7 +48,17 @@ class StoreItemIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         item_to_store = handler_input.request_envelope.request.intent.slots['storage_item'].value
-        print(item_to_store)
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('a12d15a7-b62a-4d77-90c8-40b63c3ddefe')
+        response = table.put_item(
+           Item={
+                "item_name": item_to_store,
+                "box_id": 1
+            }
+        )
+        
+        print(response)
+        
         speak_output = "What would you like to store"
 
         return (
