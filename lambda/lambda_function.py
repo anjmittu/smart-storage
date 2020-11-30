@@ -53,13 +53,11 @@ class RetrieveItemIntentHandler(AbstractRequestHandler):
         table = dynamodb.Table('a12d15a7-b62a-4d77-90c8-40b63c3ddefe')
         response = table.get_item(Key={'id': item_to_store})
         
-        print(response)
-        print(response['Item'])
-        
-        if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-            speak_output = "Get the {} in box {}".format(item_to_store, 1)
+        if "Item" in response:
+            box_id = (response['Item']["box_id"]
+            speak_output = "Get the {} in box {}".format(item_to_store, box_id)
         else:
-            speak_output = "There was a problem storing the item"
+            speak_output = "There was a problem getting the item"
 
         return (
             handler_input.response_builder
