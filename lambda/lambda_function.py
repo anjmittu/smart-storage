@@ -39,6 +39,33 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 .response
         )
 
+class RetrieveItemIntentHandler(AbstractRequestHandler):
+    """Handler for Retrieve Item Intent."""
+    def can_handle(self, handler_input):
+        # type: (HandlerInput) -> bool
+        return ask_utils.is_intent_name("RetrieveItemIntent")(handler_input)
+
+    def handle(self, handler_input):
+        # type: (HandlerInput) -> Response
+        item_to_store = handler_input.request_envelope.request.intent.slots['storage_item'].value
+        box_id = int(round(random.uniform(1, 2)))
+        
+        dynamodb = boto3.resource('dynamodb')
+        table = dynamodb.Table('a12d15a7-b62a-4d77-90c8-40b63c3ddefe')
+        response = table.get_item(Key={'id': item_to_store})
+        
+        print(response)
+        
+        if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+            speak_output = "Store the {} in box {}".format(item_to_store, box_id)
+        else:
+            speak_output = "There was a problem storing the item"
+
+        return (
+            handler_input.response_builder
+                .speak(speak_output)
+                .response
+        )
 
 class StoreItemIntentHandler(AbstractRequestHandler):
     """Handler for Store Item Intent."""
