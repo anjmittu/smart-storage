@@ -54,6 +54,7 @@ class RetrieveItemIntentHandler(AbstractRequestHandler):
         response = table.get_item(Key={'id': item_to_store})
         
         print(response)
+        print(response['Item'])
         
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
             speak_output = "Get the {} in box {}".format(item_to_store, 1)
