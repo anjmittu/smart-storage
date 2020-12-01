@@ -16,9 +16,12 @@ from ask_sdk_model import Response
 
 import boto3
 import random
+import requests
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+BASE_URL = "http://192.168.1.188/"
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -72,6 +75,7 @@ class RetrieveItemIntentHandler(AbstractRequestHandler):
         
         if "Item" in response:
             box_id = response['Item']["box_id"]
+            requests.get(BASE_URL+"open/"+box_id)
             speak_output = "Get the {} in box {}. Tell me when to close the box.".format(item_to_store, box_id)
         else:
             speak_output = "There was a problem getting the item"
