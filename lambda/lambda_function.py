@@ -21,7 +21,7 @@ import requests
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-BASE_URL = "http://192.168.1.188/"
+BASE_URL = "http://72.83.3.43/"
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -50,7 +50,7 @@ class CloseBoxIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        
+        requests.get(BASE_URL+"close/"+1)
         speak_output = "Closing the box"
 
         return (
@@ -107,6 +107,7 @@ class StoreItemIntentHandler(AbstractRequestHandler):
         )
         
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+            requests.get(BASE_URL+"open/"+box_id)
             speak_output = "Store the {} in box {}.  Tell me when to close the box.".format(item_to_store, box_id)
         else:
             speak_output = "There was a problem storing the item"
