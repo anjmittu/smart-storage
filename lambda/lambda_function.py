@@ -52,6 +52,9 @@ class CloseBoxIntentHandler(AbstractRequestHandler):
         # type: (HandlerInput) -> Response
         try:
             requests.get(BASE_URL+"close/1")
+        except:
+            # The client doesn't return a valid response so we will catch and move on
+            pass
         speak_output = "Closing the box"
 
         return (
@@ -76,7 +79,11 @@ class RetrieveItemIntentHandler(AbstractRequestHandler):
         
         if "Item" in response:
             box_id = response['Item']["box_id"]
-            requests.get(BASE_URL+"open/"+str(box_id))
+            try:
+                requests.get(BASE_URL+"open/"+str(box_id))
+            except:
+                # The client doesn't return a valid response so we will catch and move on
+                pass
             speak_output = "Get the {} in box {}. Tell me when to close the box.".format(item_to_store, box_id)
         else:
             speak_output = "There was a problem getting the item"
@@ -108,7 +115,11 @@ class StoreItemIntentHandler(AbstractRequestHandler):
         )
         
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-            requests.get(BASE_URL+"open/"+str(box_id))
+            try:
+                requests.get(BASE_URL+"open/"+str(box_id))
+            except:
+                # The client doesn't return a valid response so we will catch and move on
+                pass
             speak_output = "Store the {} in box {}.  Tell me when to close the box.".format(item_to_store, box_id)
         else:
             speak_output = "There was a problem storing the item"
