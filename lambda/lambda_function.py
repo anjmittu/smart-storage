@@ -50,7 +50,8 @@ class CloseBoxIntentHandler(AbstractRequestHandler):
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        requests.get(BASE_URL+"close/1")
+        try:
+            requests.get(BASE_URL+"close/1")
         speak_output = "Closing the box"
 
         return (
