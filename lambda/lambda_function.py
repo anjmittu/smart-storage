@@ -51,7 +51,7 @@ class CloseBoxIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         try:
-            requests.get(BASE_URL+"close/1")
+            requests.get(BASE_URL+"close")
         except:
             # The client doesn't return a valid response so we will catch and move on
             pass
