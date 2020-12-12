@@ -1,0 +1,71 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "smart storage",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "StoreItemIntent",
+          "slots": [
+            {
+              "name": "storage_item",
+              "type": "box_item"
+            }
+          ],
+          "samples": [
+            "I want to store an {storage_item} ",
+            "I want to store a {storage_item} "
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "RetrieveItemIntent",
+          "slots": [
+            {
+              "name": "box_item",
+              "type": "box_item"
+            }
+          ],
+          "samples": [
+            "I want to get the {box_item} "
+          ]
+        },
+        {
+          "name": "CloseBoxIntent",
+          "slots": [],
+          "samples": [
+            "close my box",
+            "Close the box"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "value": "item_name"
+              }
+            }
+          ],
+          "name": "box_item"
+        }
+      ]
+    }
+  },
+  "version": "11"
+}
